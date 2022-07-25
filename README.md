@@ -1,59 +1,38 @@
-# Generative-Adversarial-Networks
+# Introduction to generative adversarial networks
 
-My [blog post](https://adeshpande3.github.io/adeshpande3.github.io/Deep-Learning-Research-Review-Week-1-Generative-Adversarial-Nets) on GANs and overview of some associated papers.
+This repository contains code to accompany [the O'Reilly tutorial on generative adversarial networks](https://www.oreilly.com/learning/generative-adversarial-networks-for-beginners) written by [Jon Bruner](https://github.com/jonbruner) and [Adit Deshpande](https://github.com/adeshpande3). See [the original tutorial](https://www.oreilly.com/learning/generative-adversarial-networks-for-beginners) to run this code in a pre-built environment on O'Reilly's servers with cell-by-cell guidance, or run these files on your own machine.
 
-Generative adversarial networks (GANs) are one of the hottest topics in deep learning. From a high level, GANs are composed of two components, a generator and a discriminator. The discriminator has the task of determining whether a given image looks natural (ie, is an image from the dataset) or looks like it has been artificially created. The task of the generator is to create natural looking images that are similar to the original data distribution, images that look natural enough to fool the discriminator network. 
+There are three versions of our simple GAN model in this repository:
+- **[gan-notebook.ipynb](gan-notebook.ipynb)** is identical to the interactive tutorial, available here so that you can run it on your own machine.
+- **[gan-script.py](gan-script.py)** is a straightforward Python script containing code drawn directly from the tutorial, to be run from the command line. Note that it doesn't print anything when it's executed, but it does send regular updates to [TensorBoard](https://www.tensorflow.org/get_started/summaries_and_tensorboard) so that you can track its progress.
+- **[gan-script-fast.py](gan-script-fast.py)** is a modest refactoring of gan-script.py that runs slightly faster because more of its computations are contained in the TensorFlow graph.
 
-The analogy used in the paper is that the generative model is like “a team of counterfeiters, trying to produce and use fake currency” while the discriminative model is like “the police, trying to detect the counterfeit currency”. The generator is trying to fool the discriminator while the discriminator is trying to not get fooled by the generator. 
+## Requirements and installation
+In order to run [gan-script.py](gan-script.py) or [gan-script-fast.py](gan-script-fast.py), you'll need **[TensorFlow](https://www.tensorflow.org/install/) version 1.0 or later** and [NumPy](https://docs.scipy.org/doc/numpy/user/install.html). In order to run [gan-notebook.ipynb](gan-notebook.ipynb), you'll additionally need [Jupyter](https://jupyter.readthedocs.io/en/latest/install.html) and [matplotlib](https://matplotlib.org/).
 
-As the models train through alternating optimization, both methods are improved until a point where the “counterfeits are indistinguishable from the genuine articles”. 
+If you've already got TensorFlow on your machine, then you've got NumPy and should be able to run the raw Python scripts.
 
-The tutorial is written in Python, with the Tensorflow library, so it would be good to have familiarity with Tensorflow before taking a look at this tutorial. 
+### Installing Anaconda Python and TensorFlow
+The easiest way to install TensorFlow as well as NumPy, Jupyter, and matplotlib is to start with the Anaconda Python distribution.
 
-# How to Use Jupyter Notebooks
+1. Follow the [installation instructions for Anaconda Python](https://www.continuum.io/downloads). **We recommend using Python 3.6.**
 
-1. First step is always to clone the repository. 
-~~~~
-git clone https://github.com/uclaacmai/Generative-Adversarial-Network-Tutorial.git
-~~~~
-2. Next, we want to make sure we have Jupyter Notebook installed. You can either follow one of two paths. You can either install Anaconda (which installs Python, Jupyter Notebook, and a bunch of other useful computing libraries) or use pip.
+2. Follow the platform-specific [TensorFlow installation instructions](https://www.tensorflow.org/install/). Be sure to follow the "Installing with Anaconda" process, and create a Conda environment named `tensorflow`.
 
-- To install Anaconda, take a look at their [website](https://www.continuum.io/downloads), which has some pretty great documentation. 
+3. If you aren't still inside your Conda TensorFlow environment, enter it by opening your terminal and typing
+    ```bash
+    source activate tensorflow
+    ```
 
-- If you want to install using pip, you'll need to update pip with the following code (Replace pip with pip3 if using Python 3). 
+4. Download and unzip [this entire repository from GitHub](https://github.com/jonbruner/generative-adversarial-networks), either interactively, or by entering
+    ```bash
+    git clone https://github.com/jonbruner/generative-adversarial-networks.git
+    ```
 
-On Linux/Mac OS:
-~~~~
-pip install -U pip setuptools
-~~~~
+5. Use `cd` to navigate into the top directory of the repo on your machine
 
-On Windows:
-~~~~
-python -m pip install -U pip setuptools
-~~~~
-
-Next, you should be able to run the following. 
-~~~~
-pip install jupyter
-~~~~
-
-3. Finally, run the following command and a new tab in your browser with the Jupyter Notebook should come up
-~~~~
-jupyter notebook
-~~~~
-
-For more resources on Jupyter Notebooks, check out the following:
-* [Installation Documentation](http://jupyter.readthedocs.io/en/latest/install.html)
-* [Trying Jupyter](https://try.jupyter.org/) just in your browser
-* [Jupyter Docs](https://jupyter.readthedocs.io/en/latest/index.html)
-* [Video tutorial](https://www.youtube.com/watch?v=Rc4JQWowG5I) on Jupyter
-* [Detailed tutorials](https://github.com/jrjohansson/scientific-python-lectures) on using different Python libraries in Jupyter Notebooks
-
-# More GAN Resources
-
-* The original [paper](https://arxiv.org/pdf/1406.2661.pdf) written by Ian Goodfellow in 2014. 
-* Siraj Raval's [video tutorial](https://www.youtube.com/watch?v=deyOX6Mt_As) on GANs (Really fun video)
-* Ian Godfellow's [keynote](https://channel9.msdn.com/Events/Neural-Information-Processing-Systems-Conference/Neural-Information-Processing-Systems-Conference-NIPS-2016/Generative-Adversarial-Networks) on GANs (More of a technical video)
-* Brandon Amos's image completion [blog post](https://bamos.github.io/2016/08/09/deep-completion/)
-* [Blog post](https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7) on using GANs in video games. 
-* Andrej Karpathy's [blog post](http://cs.stanford.edu/people/karpathy/gan/) with GAN visualizations.
+6. Launch Jupyter by entering
+    ```bash
+    jupyter notebook
+    ```
+    and, using your browser, navigate to the URL shown in the terminal output (usually http://localhost:8888/)
